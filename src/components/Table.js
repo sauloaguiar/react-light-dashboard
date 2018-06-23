@@ -22,7 +22,7 @@ class Table extends Component {
       body: JSON.stringify({
         data: {
           name: row.name,
-          active: !row.active,
+          active: row.active,
           brightness: row.brightness
         }
       })
@@ -52,8 +52,37 @@ class Table extends Component {
       }
     },() => {
       this.handleLightbulb(this.state.lights[row.id]);
-    });
-    
+    }); 
+  }
+
+  updateBrightnessLocally = (event, row) => {
+    const { lights } = this.state;
+    this.setState({
+      lights: {
+        ...lights,
+        [row.id]: {
+          ...row,
+          brightness: event.target.value
+        }
+      }
+    },() => {
+      this.handleLightbulb(this.state.lights[row.id]);
+    }); 
+  }
+
+  updateActiveLocally = (row) => {
+    const { lights } = this.state;
+    this.setState({
+      lights: {
+        ...lights,
+        [row.id]: {
+          ...row,
+          active: !row.active
+        }
+      }
+    },() => {
+      this.handleLightbulb(this.state.lights[row.id]);
+    }); 
   }
 
   columns = [
@@ -77,7 +106,7 @@ class Table extends Component {
             <input
               type="checkbox"
               defaultChecked={value}
-              onChange={() => this.handleLightbulb(row)}/>
+              onChange={() => this.updateActiveLocally(row)}/>
             <label>{value ? "On":"Off"}</label>
           </div>
         );
@@ -85,7 +114,19 @@ class Table extends Component {
     },
     {
       field: 'brightness',
-      render: (value) => <span>{value} %</span>
+      render: (value, row) => {
+        return (
+          <div>
+            <span>{value} %</span>
+            <input
+              type="range"
+              min="1"
+              max="100"
+              defaultValue={value}
+              onMouseUp={(event) => this.updateBrightnessLocally(event, row)} />
+          </div>
+        );
+      }
     },
   ];
 
@@ -107,10 +148,6 @@ class Table extends Component {
   
   render() {
     const { lights, loading } = this.state;
-    if (lights) {
-      const data = [...Object.values(lights)];
-      console.log('data: ', data);
-    }
     return (
       <div className="table">
         {loading &&
@@ -121,7 +158,7 @@ class Table extends Component {
           columns={this.columns}
           data={[...Object.values(lights)]}
           rowKey='id'
-          onRowClick={(row) => console.log(row)}
+          // onRowClick={(row) => console.log(row)}
         />
 
       </div>
