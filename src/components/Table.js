@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table as RenditionTable } from 'rendition';
+import CustomInput from './CustomInput';
 
 const url = 'http://localhost:3000/api/v1/device';
 
@@ -82,24 +83,26 @@ class Table extends Component {
       }
     },() => {
       this.handleLightbulb(this.state.lights[row.id]);
-    }); 
+    });
   }
 
   columns = [
     {
       field: 'name',
+      label: 'Room',
       sortable: true,
       render: (value, row) => {
         return (
-          <input
-            type="text"
+          <CustomInput
             value={value}
-            onChange={(event) => this.updateNameLocally(event, row)}/>
+            onChange={(event) => this.updateNameLocally(event, row)}
+          />
         )
       }
     },
     {
       field: 'active',
+      label: 'State',
       render: (value, row) => { 
         return (
           <div>
@@ -114,6 +117,7 @@ class Table extends Component {
     },
     {
       field: 'brightness',
+      label: 'Brightness',
       render: (value, row) => {
         return (
           <div>
@@ -154,12 +158,13 @@ class Table extends Component {
           <div>Loading...</div>
         }
 
-        <RenditionTable
-          columns={this.columns}
-          data={[...Object.values(lights)]}
-          rowKey='id'
-          // onRowClick={(row) => console.log(row)}
-        />
+        {!loading &&
+          <RenditionTable
+            columns={this.columns}
+            data={[...Object.values(lights)]}
+            rowKey='id'
+          />
+        }
 
       </div>
     );
