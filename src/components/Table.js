@@ -2,88 +2,20 @@ import React, { Component } from 'react';
 import { Table as RenditionTable } from 'rendition';
 import CustomInput from './CustomInput';
 
-const url = 'http://localhost:3000/api/v1/device';
-
 class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      lights: {}
-    };
-  }
-
-  handleLightbulb = (row) => {
-    const { lights } = this.state;
-    fetch(`${url}/${row.id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        data: {
-          name: row.name,
-          active: row.active,
-          brightness: row.brightness
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(response => {
-      this.setState({
-        lights: {
-          ...lights,
-          [response.data.id]: {
-            ...response.data
-          }
-        }
-      })
-    })
-  }
-
   updateNameLocally = (event, row) => {
-    const { lights } = this.state;
-    this.setState({
-      lights: {
-        ...lights,
-        [row.id]: {
-          ...row,
-          name: event.target.value
-        }
-      }
-    },() => {
-      this.handleLightbulb(this.state.lights[row.id]);
-    }); 
+    const { onNameUpdated } = this.props;
+    if (onNameUpdated) onNameUpdated(event.target.value, row);
   }
 
   updateBrightnessLocally = (event, row) => {
-    const { lights } = this.state;
-    this.setState({
-      lights: {
-        ...lights,
-        [row.id]: {
-          ...row,
-          brightness: event.target.value
-        }
-      }
-    },() => {
-      this.handleLightbulb(this.state.lights[row.id]);
-    }); 
+    const { onBrigthnessUpdated } = this.props;
+    if (onBrigthnessUpdated) onBrigthnessUpdated(event.target.value, row);
   }
 
   updateActiveLocally = (row) => {
-    const { lights } = this.state;
-    this.setState({
-      lights: {
-        ...lights,
-        [row.id]: {
-          ...row,
-          active: !row.active
-        }
-      }
-    },() => {
-      this.handleLightbulb(this.state.lights[row.id]);
-    });
+    const { onStateUpdated } = this.props;
+    if (onStateUpdated) onStateUpdated(!row.active, row);
   }
 
   columns = [
@@ -133,39 +65,16 @@ class Table extends Component {
       }
     },
   ];
-
-  componentDidMount() {
-    this.setState({ loading: true }, () => {
-      fetch(url)
-        .then((response) => response.json())
-        .then(response => this.setState({
-          lights: response.data.reduce(function(map, obj) {
-            map[obj.id] = obj;
-            return map;
-          }, {}),
-          loading: false
-        }))
-    })
-    
-  }
-
   
   render() {
-    const { lights, loading } = this.state;
+    const { data } = this.props;
     return (
       <div className="table">
-        {loading &&
-          <div>Loading...</div>
-        }
-
-        {!loading &&
-          <RenditionTable
-            columns={this.columns}
-            data={[...Object.values(lights)]}
-            rowKey='id'
-          />
-        }
-
+       <RenditionTable
+          columns={this.columns}
+          data={data}
+          rowKey='id'
+        />
       </div>
     );
   }
