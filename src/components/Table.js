@@ -54,12 +54,6 @@ class Table extends Component {
         return (
           <div>
             <span>{value} %</span>
-            <input
-              type="range"
-              min="1"
-              max="100"
-              defaultValue={value}
-              onMouseUp={(event) => this.updateBrightnessLocally(event, row)} />
           </div>
         );
       }
@@ -67,13 +61,14 @@ class Table extends Component {
   ];
   
   render() {
-    const { data } = this.props;
+    const { data, onRowClick } = this.props;
     return (
       <div className="table">
        <RenditionTable
           columns={this.columns}
           data={data}
           rowKey='id'
+          onRowClick={(row) => onRowClick(row)}
         />
       </div>
     );

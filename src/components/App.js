@@ -12,7 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       lights: {},
-      loading: false
+      loading: false,
+      selectedRow: 0
     }
   }
 
@@ -73,18 +74,19 @@ class App extends Component {
     }); 
   }
 
-  brightnessUpdated = (value, row) => {
-    const { lights } = this.state;
+  brightnessUpdated = (value, send) => {
+    const { lights, selectedRow } = this.state;
     this.setState({
       lights: {
         ...lights,
-        [row.id]: {
-          ...row,
+        [selectedRow]: {
+          ...lights[selectedRow],
           brightness: value
         }
       }
     },() => {
-      this.handleLightbulb(this.state.lights[row.id]);
+      if (send)
+        this.handleLightbulb(this.state.lights[selectedRow]);
     }); 
   }
 
@@ -103,8 +105,12 @@ class App extends Component {
     });
   }
 
+  rowClicked = (row) => {
+    this.setState({ selectedRow: row.id });
+  }
+
   render() {
-    const { lights, loading } = this.state;
+    const { lights, loading, selectedRow } = this.state;
     return (
       <div className="App">
         <Header />
@@ -117,8 +123,15 @@ class App extends Component {
               data={[...Object.values(lights)]}
               onNameUpdated={(newName, row) => this.nameUpdated(newName, row)}
               onBrigthnessUpdated={(newName, row) => this.brightnessUpdated(newName, row)}
-              onStateUpdated={(newName, row) => this.lightStateUpdated(newName, row)} />
-            <Slider />
+              onStateUpdated={(newName, row) => this.lightStateUpdated(newName, row)}
+              onRowClick={(row) => this.rowClicked(row)}/>
+            {selectedRow > 0 &&
+              <Slider
+                value={lights[selectedRow].brightness}
+                onUpdate={(value, send) => this.brightnessUpdated(value, send)}
+              />
+            }
+            
           </div>
         }
       </div>
