@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table as RenditionTable } from 'rendition';
 import CustomInput from './CustomInput';
+import SwitchButton from 'lyef-switch-button';
+import '../../node_modules/lyef-switch-button/css/main.css';
 
 class Table extends Component {
   updateNameLocally = (event, row) => {
@@ -37,13 +39,12 @@ class Table extends Component {
       label: 'State',
       render: (value, row) => { 
         return (
-          <div>
-            <input
-              type="checkbox"
-              defaultChecked={value}
-              onChange={() => this.updateActiveLocally(row)}/>
-            <label>{value ? "On":"Off"}</label>
-          </div>
+          <SwitchButton
+            id={String(row.id)}
+            isChecked={value}
+            action={() => this.updateActiveLocally(row)}
+            labelRight={value ? "On":"Off"}
+          />
         );
       }
     },

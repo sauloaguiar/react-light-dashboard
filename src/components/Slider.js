@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Gauge from 'react-svg-gauge';
 class Slider extends Component {
 
   updateBrightness = (event, send) => {
@@ -12,13 +12,14 @@ class Slider extends Component {
     return (
       <div className="slider">
         <span>{value}</span>
-        <input
+        {/* <input
           type="range"
           min="1"
           max="100"
           value={value}
           onChange={(event) => this.updateBrightness(event, false)}
-          onMouseUp={(event) => this.updateBrightness(event, true)} />
+          onMouseUp={(event) => this.updateBrightness(event, true)} /> */}
+        <Gauge value={value} width={400} height={320} />
       </div>
     );
   }
