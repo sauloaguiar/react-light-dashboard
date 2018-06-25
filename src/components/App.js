@@ -118,20 +118,26 @@ class App extends Component {
           <div>Loading...</div>
         }
         {!loading &&
-          <div>
-            <Table
-              data={[...Object.values(lights)]}
-              onNameUpdated={(newName, row) => this.nameUpdated(newName, row)}
-              onBrigthnessUpdated={(newName, row) => this.brightnessUpdated(newName, row)}
-              onStateUpdated={(newName, row) => this.lightStateUpdated(newName, row)}
-              onRowClick={(row) => this.rowClicked(row)}/>
-            {selectedRow > 0 &&
-              <Slider
-                value={lights[selectedRow].brightness}
-                onUpdate={(value, send) => this.brightnessUpdated(value, send)}
-              />
-            }
-            
+          <div className="dashboard">
+            <div className="dashboardHeader">
+              <h2>Lightning</h2>
+            </div>
+            <div className="tableContainer">
+              <Table
+                className="table" 
+                data={[...Object.values(lights)]}
+                onNameUpdated={(newName, row) => this.nameUpdated(newName, row)}
+                onStateUpdated={(newName, row) => this.lightStateUpdated(newName, row)}
+                onRowClick={(row) => this.rowClicked(row)}/>
+              {selectedRow > 0 &&
+                <Slider
+                  className="slider"
+                  value={lights[selectedRow].brightness}
+                  onUpdate={(value, send) => this.brightnessUpdated(value, send)}
+                />
+              }
+              
+            </div>
           </div>
         }
       </div>

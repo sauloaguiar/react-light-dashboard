@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+.tableContainer { 
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table {
+  flex-grow: 1;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.slider {
+  padding: 5px;
+  background: red;
+  flex-grow: 1;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
