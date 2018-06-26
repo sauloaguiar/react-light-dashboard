@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import Gauge from 'react-svg-gauge';
+import Knob from './Knob';
+import './Slider.css';
+
 class Slider extends Component {
 
-  updateBrightness = (event, send) => {
+  updateBrightness = (value, send) => {
     const { onUpdate } = this.props;
-    if (onUpdate) onUpdate(event.target.value, send);
+    if (onUpdate) onUpdate(value, send);
   }
-
+  
   render() {
-    const { value } = this.props;
+    const { value, width } = this.props;
     return (
-      <div className="slider">
-        <span>{value}</span>
-        {/* <input
-          type="range"
-          min="1"
-          max="100"
+      <div className="sliderContainer">
+        <Knob
+          thickness={0.08}
+          width={width}
           value={value}
-          onChange={(event) => this.updateBrightness(event, false)}
-          onMouseUp={(event) => this.updateBrightness(event, true)} /> */}
-        <Gauge value={value} width={400} height={320} />
+          onChange={(value) => this.updateBrightness(value, false)}
+          onChangeEnd={(value) => this.updateBrightness(value, true)}
+          angleArc={270}
+          angleOffset={225}
+          displayInput={false}
+          disableMouseWheel={true}
+          displayCustom={() => {
+            return (
+              <div className="sliderLabelContainer">
+                <span><span className="sliderValue">{value}</span>%</span>
+                <span className="sliderValueUnit">Brightness</span>
+              </div>
+            )}
+          }
+        />
       </div>
     );
   }
