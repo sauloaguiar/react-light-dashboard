@@ -124,7 +124,7 @@ class App extends Component {
             </div>
             <div className="tableContainer">
               <Table
-                className="table" 
+                className="table"
                 data={[...Object.values(lights)]}
                 onNameUpdated={(newName, row) => this.nameUpdated(newName, row)}
                 onStateUpdated={(newName, row) => this.lightStateUpdated(newName, row)}
