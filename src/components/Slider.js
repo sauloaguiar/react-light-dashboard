@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Knob from './Knob';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSun } from '@fortawesome/free-solid-svg-icons'
 import './Slider.css';
 
 class Slider extends Component {
@@ -14,7 +16,7 @@ class Slider extends Component {
     return (
       <div className="sliderContainer">
         <Knob
-          thickness={0.08}
+          thickness={0.1}
           width={width}
           value={value}
           onChange={(value) => this.updateBrightness(value, false)}
@@ -23,9 +25,11 @@ class Slider extends Component {
           angleOffset={225}
           displayInput={false}
           disableMouseWheel={true}
+          fgColor="#fec400"
           displayCustom={() => {
             return (
               <div className="sliderLabelContainer">
+                <FontAwesomeIcon icon={faSun} color="#fec400" />
                 <span><span className="sliderValue">{value}</span>%</span>
                 <span className="sliderValueUnit">Brightness</span>
               </div>

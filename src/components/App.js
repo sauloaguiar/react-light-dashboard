@@ -136,7 +136,7 @@ class App extends Component {
                   onUpdate={(value, send) => this.brightnessUpdated(value, send)}
                 />
               }
-              
+
             </div>
           </div>
         }

@@ -85,6 +85,8 @@ class Knob extends React.Component {
       String(Math.abs(this.props.max)).length,
       2
     ) + 2;
+
+    this.cursorRadius = 8;
   }
 
   componentDidMount() {
@@ -283,7 +285,7 @@ class Knob extends React.Component {
     ctx.scale(scale, scale);
     this.xy = this.w / 2; // coordinates of canvas center
     this.lineWidth = this.xy * this.props.thickness;
-    this.radius = this.xy - (this.lineWidth / 2);
+    this.radius = this.xy - this.cursorRadius - (this.lineWidth / 2);
     ctx.lineWidth = this.lineWidth;
     ctx.lineCap = this.props.lineCap;
     // background arc
@@ -301,7 +303,14 @@ class Knob extends React.Component {
     // foreground arc
     const a = this.getArcToValue(this.props.value);
     ctx.beginPath();
-    ctx.strokeStyle = this.props.fgColor;
+    
+    // gradient for foreground arc
+    var gradient=ctx.createLinearGradient(0,0,170,0);
+    gradient.addColorStop("0","#8c6800"); // calculate initial gradient color based on the given one
+    gradient.addColorStop("1.0",this.props.fgColor);
+
+    // Fill with gradient
+    ctx.strokeStyle=gradient;
     ctx.arc(
       this.xy,
       this.xy,
@@ -311,8 +320,22 @@ class Knob extends React.Component {
       a.acw
     );
     ctx.stroke();
-  }
 
+    // math to find x, y for slider cursor
+    var x = this.xy + this.radius * Math.cos(a.endAngle) ;
+    var y = this.xy + this.radius * Math.sin(a.endAngle) ;
+
+    // cursor drawing
+    ctx.beginPath();
+    ctx.arc(x, y, this.cursorRadius, 0, 2 * Math.PI, false); // radius for cursor
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+   
+  }
+  
   renderCenter = () => {
     const {
       displayCustom,

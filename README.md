@@ -21,11 +21,23 @@
   I'm assuming that the id's from each lightbulb will be positive integers only as I have set 0 as the default value for
   selectedRow. Slider's range will go from 1 to 100 using 1 as step. Even though the UI gets updated as the user plays with the Slider, only after the mouse leaves the Slider the http call will be fired.
 
+  26/6
+  Dived into Knob.js class to implement the circle cursor for the slider.
+  Made some assumptions about the circle like its direction, size, that we will always have a gradient.
+  Added font awesome to the project to have the sun icon inside the circle slider.
+  Also added moment.js to format date/hour times.
+  
+  I'm considering to extract code from App to a new component called LightbulbManager to allow for app growth in a easier and more maintanable way.
+
+  My next steps will include extracting the web/http logic to a separate file, use a object to define constant values that our app uses (like the props for the table), add prop types and default props to the components.
+  
 ### References
-  Some weblinks that were helpful throught the development
+  Some weblinks that were helpful through the development
   - https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
   - https://scotch.io/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
   - https://medium.freecodecamp.org/the-right-way-to-test-react-components-548a4736ab22
+  - https://stackoverflow.com/questions/14193956/draw-arc-will-linear-gradient-html5-canvas
+  - https://stackoverflow.com/questions/32681610/drawing-point-on-circle
 
 ### Create React App
 
