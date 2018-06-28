@@ -7,40 +7,11 @@
   flex-wrap: wrap;
 }
 
-.table {
-  flex-grow: 1;
-  padding-left: 20px;
-  padding-right: 10px;
-}
-
 .sliderContainer {
   padding: 5px;
   flex-grow: 1;
 }
 
-.App-header {
-  background-color: #222;
-  height: 50px;
-  color: white;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.headerUserinfo {
-  margin-left: auto;
-  padding-right: 20px;
-}
-.headerHour {
-  margin-right: auto
-}
-
-.headerDate {
-  margin-right: auto;
-  padding-left: 20px;
-}
-
-.vl {
-  border-left: 1px solid #ccc;
-  height: 100%;
+span {
+  font-size: 12px;
 }
