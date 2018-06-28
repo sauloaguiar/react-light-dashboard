@@ -55,7 +55,7 @@ class Table extends Component {
       render: (value, row) => {
         return (
           <div>
-            <span>{value} %</span>
+            <span>{value}%</span>
           </div>
         );
       }

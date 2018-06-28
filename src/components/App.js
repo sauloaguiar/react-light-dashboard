@@ -150,6 +150,7 @@ class App extends Component {
                 <Slider
                   width={200}
                   value={lights[selectedRow].brightness}
+                  label={lights[selectedRow].name}
                   onUpdate={(value, send) => this.brightnessUpdated(value, send)}
                 />
               }

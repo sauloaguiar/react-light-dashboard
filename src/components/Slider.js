@@ -12,9 +12,10 @@ class Slider extends Component {
   }
   
   render() {
-    const { value, width } = this.props;
+    const { value, width, label } = this.props;
     return (
       <div className="sliderContainer">
+        <h2 className="sliderLabel">{label} light</h2>
         <Knob
           thickness={0.1}
           width={width}
@@ -28,7 +29,7 @@ class Slider extends Component {
           fgColor="#fec400"
           displayCustom={() => {
             return (
-              <div className="sliderLabelContainer">
+              <div className="sliderIndicatorContainer">
                 <FontAwesomeIcon icon={faSun} color="#fec400" />
                 <span><span className="sliderValue">{value}</span>%</span>
                 <span className="sliderValueUnit">Brightness</span>
