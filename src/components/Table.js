@@ -4,21 +4,15 @@ import CustomInput from './CustomInput';
 import SwitchButton from 'lyef-switch-button';
 import '../../node_modules/lyef-switch-button/css/main.css';
 import './Table.css';
+import PropTypes from 'prop-types';
 
 class Table extends Component {
   updateNameLocally = (event, row) => {
-    const { onNameUpdated } = this.props;
-    if (onNameUpdated) onNameUpdated(event.target.value, row);
-  }
-
-  updateBrightnessLocally = (event, row) => {
-    const { onBrigthnessUpdated } = this.props;
-    if (onBrigthnessUpdated) onBrigthnessUpdated(event.target.value, row);
+    this.props.onNameUpdated(event.target.value, row);
   }
 
   updateActiveLocally = (row) => {
-    const { onStateUpdated } = this.props;
-    if (onStateUpdated) onStateUpdated(!row.active, row);
+    this.props.onStateUpdated(!row.active, row);
   }
 
   columns = [
@@ -75,6 +69,17 @@ class Table extends Component {
       </div>
     );
   }
+}
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+  onRowClick: PropTypes.func.isRequired,
+  onNameUpdated: PropTypes.func,
+  onStateUpdated: PropTypes.func
+}
+
+Table.defaultProps = {
+  onRowClick: () => {}
 }
 
 export default Table;

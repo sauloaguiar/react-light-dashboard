@@ -3,16 +3,12 @@ import Knob from './Knob';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun } from '@fortawesome/free-solid-svg-icons'
 import './Slider.css';
+import PropTypes from 'prop-types';
 
 class Slider extends Component {
 
-  updateBrightness = (value, send) => {
-    const { onUpdate } = this.props;
-    if (onUpdate) onUpdate(value, send);
-  }
-  
   render() {
-    const { value, width, label } = this.props;
+    const { value, width, label, onUpdate } = this.props;
     return (
       <div className="sliderContainer">
         <h2 className="sliderLabel">{label} light</h2>
@@ -20,8 +16,8 @@ class Slider extends Component {
           thickness={0.1}
           width={width}
           value={value}
-          onChange={(value) => this.updateBrightness(value, false)}
-          onChangeEnd={(value) => this.updateBrightness(value, true)}
+          onChange={(value) => onUpdate(value, false)}
+          onChangeEnd={(value) => onUpdate(value, true)}
           angleArc={270}
           angleOffset={225}
           displayInput={false}
@@ -40,6 +36,19 @@ class Slider extends Component {
       </div>
     );
   }
+}
+
+Slider.propTypes = {
+  onUpdate: PropTypes.func,
+  value: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
+}
+
+Slider.defaultProps = {
+  onUpdate: () => {},
+  label: `Bulb's name`,
+  width: 200
 }
 
 export default Slider;

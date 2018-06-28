@@ -148,7 +148,6 @@ class App extends Component {
                 onRowClick={(row) => this.rowClicked(row)}/>
               {selectedRow > 0 &&
                 <Slider
-                  width={200}
                   value={lights[selectedRow].brightness}
                   label={lights[selectedRow].name}
                   onUpdate={(value, send) => this.brightnessUpdated(value, send)}
