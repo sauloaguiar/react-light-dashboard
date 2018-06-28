@@ -5,6 +5,11 @@ import Table from './Table';
 import Header from './Header';
 import Slider from './Slider';
 
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const url = 'http://localhost:3000/api/v1/device';
 
 class App extends Component {
@@ -120,7 +125,19 @@ class App extends Component {
         {!loading &&
           <div className="dashboard">
             <div className="dashboardHeader">
-              <h2>Lightning</h2>
+              <div className="dashboardIcons">
+                <div className="homeIcon">
+                  <FontAwesomeIcon icon={faHome} size="lg"/>
+                </div>
+                <div className="backIcon"> 
+                  <FontAwesomeIcon icon={faChevronLeft} size="lg"/>
+                  <span>Back</span>
+                </div>
+              </div>
+              <div className="dashboardLabel">
+                <FontAwesomeIcon icon={faLightbulb} size="2x"/>
+                <h2>Lighting</h2>
+              </div>
             </div>
             <div className="tableContainer">
               <Table
