@@ -9,6 +9,7 @@
 .sliderLabel {
   margin: 45px 0px;
   color: #fff;
+  max-width: 200px;
 }
 
 .sliderIndicatorContainer {

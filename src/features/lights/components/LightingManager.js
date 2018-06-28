@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import './App.css';
+import './LightingManager.css';
 import Table from './Table';
-import Header from './Header';
 import Slider from './Slider';
 
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons'
@@ -10,9 +9,9 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const url = 'http://localhost:3000/api/v1/device';
+import { loadLightDataFromServer, sendLighDataToServer } from '../network';
 
-class App extends Component {
+class LightingManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ loading: true }, () => {
-      fetch(url)
-        .then(response => response.json())
+      loadLightDataFromServer()
         .then(response => this.setState({
           lights: response.data.reduce(function(map, obj) {
             map[obj.id] = obj;
@@ -38,30 +36,17 @@ class App extends Component {
 
   handleLightbulb = (row) => {
     const { lights } = this.state;
-    fetch(`${url}/${row.id}`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        data: {
-          name: row.name,
-          active: row.active,
-          brightness: row.brightness
-        }
-      })
-    })
-    .then(response => response.json())
-    .then(response => {
-      this.setState({
-        lights: {
-          ...lights,
-          [response.data.id]: {
-            ...response.data
+    sendLighDataToServer(row)
+      .then(response => {
+        this.setState({
+          lights: {
+            ...lights,
+            [response.data.id]: {
+              ...response.data
+            }
           }
-        }
+        })
       })
-    })
   }
 
   nameUpdated = (name, row) => {
@@ -117,8 +102,7 @@ class App extends Component {
   render() {
     const { lights, loading, selectedRow } = this.state;
     return (
-      <div className="App">
-        <Header />
+      <div className="lightingDashboard">
         {loading &&
           <div>Loading...</div>
         }
@@ -134,9 +118,9 @@ class App extends Component {
                   <span>Back</span>
                 </div>
               </div>
-              <div className="dashboardLabel">
+              <div className="dashboardLabelWrapper">
                 <FontAwesomeIcon icon={faLightbulb} size="2x"/>
-                <h2>Lighting</h2>
+                <h2 className="dashboardLabel">Lighting</h2>
               </div>
             </div>
             <div className="tableContainer">
@@ -153,7 +137,6 @@ class App extends Component {
                   onUpdate={(value, send) => this.brightnessUpdated(value, send)}
                 />
               }
-
             </div>
           </div>
         }
@@ -162,4 +145,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default LightingManager;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table as RenditionTable } from 'rendition';
 import CustomInput from './CustomInput';
 import SwitchButton from 'lyef-switch-button';
-import '../../node_modules/lyef-switch-button/css/main.css';
+import '../../../../node_modules/lyef-switch-button/css/main.css';
 import './Table.css';
 import PropTypes from 'prop-types';
 

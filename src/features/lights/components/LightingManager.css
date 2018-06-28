@@ -1,4 +1,4 @@
-.App {
+.lightingDashboard {
   text-align: center;
 }
 
@@ -22,10 +22,14 @@ span {
   margin-bottom: 40px;
 }
 
-.dashboardLabel {
+.dashboardLabelWrapper {
   flex-grow: 9;
   display: flex;
   align-items: center;
+}
+
+.dashboardLabel {
+  margin-left: 20px;
 }
 
 .dashboardIcons {
