@@ -3,6 +3,7 @@
 ### Running
 
 After opening a copy of this, run `yarn` to install all the dependencies and then run `yarn start` to have the project running in the por 3001. (This can be changed in the .env file at the root dir).
+This assumes that the server is running in the port `3000`. If there's need to change this value, update it in the `/src/features/lights/network.js` file.
 
 ### Design Considerations
 
@@ -13,7 +14,7 @@ After opening a copy of this, run `yarn` to install all the dependencies and the
 
   1.  The header will contain static info only.
   2.  The table will fetch data from the remote server and keep it as its internal state.
-  3.  The slider will be displayed after some lightbulb was selected from the table and updating its value will fire a patch http call.
+  3.  The slider will be displayed after some lightbulb was selected from the table and updating its value will fire a patch http call. Another option here would be to have the slider area displaying a message like 'select an option to adjust the brightness' before any lightbuld was selected. I took the first approach because it sounded more natural to me.
 
 - 24/6
   I actually decided to move the http calls to the App component. My motivation is that the App component will serve as the
@@ -21,7 +22,7 @@ After opening a copy of this, run `yarn` to install all the dependencies and the
   The Table and the Slider component will be displayed only after data has been loaded.
   Even after the loading, the Slider won't be displayed. Only after the user clicks on a specific row the Slider will appear.
   I'm assuming that the id's from each lightbulb will be positive integers only as I have set 0 as the default value for
-  selectedRow. Slider's range will go from 1 to 100 using 1 as step. Even though the UI gets updated as the user plays with the Slider, only after the mouse leaves the Slider the http call will be fired.
+  selectedRow. Slider's range will go from 1 to 100 using 1 as step. Even though the UI gets updated as the user plays with the Slider, only after the mouse leaves the Slider the http call will be fired. This will be http efficient and will also keep the desired functionality.
 
 - 26/6
   Dived into Knob.js class to implement the circle cursor for the slider.
@@ -34,6 +35,8 @@ After opening a copy of this, run `yarn` to install all the dependencies and the
 - 28/6
   I decided to extract the whole lighting dashboard to an specific component and to have a App component entry point to call it.
   This will allow the app to be more easily extended if new dashboards or other sections have to be added later on.
+
+  I also missed adding a debounce to the lightbulb name edition. Right now, every key stroke is sent to the server.
 
 ### References
 
