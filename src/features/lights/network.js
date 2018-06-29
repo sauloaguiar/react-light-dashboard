@@ -8,15 +8,14 @@ export function sendLighDataToServer(row) {
   return fetch(`${url}/${row.id}`, {
     method: 'PATCH',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
     },
     body: JSON.stringify({
       data: {
         name: row.name,
         active: row.active,
-        brightness: row.brightness
-      }
-    })
-  })
-  .then(response => response.json())
+        brightness: row.brightness,
+      },
+    }),
+  }).then(response => response.json());
 }

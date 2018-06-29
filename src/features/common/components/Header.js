@@ -6,7 +6,9 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <span className="headerDate">{moment().format('dddd D MMMM, YYYY')}</span>
+        <span className="headerDate">
+          {moment().format('dddd D MMMM, YYYY')}
+        </span>
         <span className="headerHour">{moment().format('h:m A')}</span>
         <div className="headerUserContainer">
           <span className="headerUserinfo">Name Username</span>

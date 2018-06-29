@@ -5,26 +5,23 @@ export default class CustomInput extends Component {
     super(props);
     this.state = {
       editing: false,
-    }
+    };
   }
 
   render() {
     const { editing } = this.state;
     const { onChange, value } = this.props;
     return (
-      <div className="customInput" >
-        {editing &&
+      <div className="customInput">
+        {editing && (
           <div>
-            <input
-              type="text"
-              value={value}
-              onChange={onChange}/>
+            <input type="text" value={value} onChange={onChange} />
             <span onClick={() => this.setState({ editing: false })}>x</span>
           </div>
-        }
-        {!editing &&
+        )}
+        {!editing && (
           <span onClick={() => this.setState({ editing: true })}>{value}</span>
-        }
+        )}
       </div>
     );
   }
