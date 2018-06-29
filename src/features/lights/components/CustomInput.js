@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Input } from 'rendition';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './CustomInput.css';
 
 export default class CustomInput extends Component {
   constructor(props) {
@@ -15,8 +19,13 @@ export default class CustomInput extends Component {
       <div className="customInput">
         {editing && (
           <div>
-            <input type="text" value={value} onChange={onChange} />
-            <span onClick={() => this.setState({ editing: false })}>x</span>
+            <Input value={value} onChange={onChange} />
+            <span
+              onClick={() => this.setState({ editing: false })}
+              className="inputCloseButton"
+            >
+              <FontAwesomeIcon icon={faTimes} color="red" size="lg" />
+            </span>
           </div>
         )}
         {!editing && (

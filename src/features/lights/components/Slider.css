@@ -10,6 +10,7 @@
   margin: 45px 0px;
   color: #fff;
   max-width: 200px;
+  min-height: 75px;
 }
 
 .sliderIndicatorContainer {
@@ -32,5 +33,5 @@
 }
 
 .sliderValueUnit {
-  font-weight: 100
+  font-weight: 100;
 }
