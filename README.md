@@ -1,11 +1,16 @@
-## Resin Hiring Challenge
+## React Light Dashboard
+
+This is a learning project to develop a react based web application that will bring this mockup to life.
+
+![mockup image](mockup.jpg 'Mockup')
 
 ### Running
 
 After opening a copy of this, run `yarn` to install all the dependencies and then run `yarn start` to have the project running in the por 3001. (This can be changed in the .env file at the root dir).
 This assumes that the server is running in the port `3000`. If there's need to change this value, update it in the `/src/features/lights/network.js` file.
+You can find the server's code [here](https://github.com/sauloaguiar/light-api)
 
-### Design Considerations
+### Development Considerations
 
 - 22/6
   My first idea is to use only react state to manipulate whatever is needed in the application. Reason being that state
