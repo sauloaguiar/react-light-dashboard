@@ -1,4 +1,5 @@
-export const url = 'http://localhost:3000/api/v1/device';
+import config from '../../config';
+export const url = config.url;
 
 export function loadLightDataFromServer() {
   return fetch(url).then(response => response.json());
